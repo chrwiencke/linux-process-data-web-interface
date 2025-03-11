@@ -1,26 +1,35 @@
+For å sette opp kjør disse komandoene
+
+sudo apt install nginx -y
+
+sudo rm -rf /var/www/html/
+
+
+sudo nano /etc/systemd/system/lpdwi.service
+
 Systemd Config
 ```
 [Unit]
-Description=Web Usage Information Software
+Description=Linux Process Data Web Interface
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /usr/local/bin/processdata.sh
+ExecStart=/bin/bash /usr/local/bin/lpdwi.sh
 Restart=always
 User=root
 WorkingDirectory=/usr/local/bin
-StandardOutput=append:/var/log/processdata.log
-StandardError=append:/var/log/processdata.log
+StandardOutput=append:/var/log/lpdwi.log
+StandardError=append:/var/log/lpdwi.log
 
 [Install]
 WantedBy=multi-user.target
 ```
 
 ### Putt script.sh inni user local bin processdata
-sudo nano /usr/local/bin/processdata.sh 
+sudo nano /usr/local/bin/lpdwi.sh 
 
-sudo chmod +x /usr/local/bin/processdata.sh
+sudo chmod +x /usr/local/bin/lpdwi.sh
 
 sudo systemctl daemon-reload
-sudo systemctl enable web-process.service
-sudo systemctl start web-process.service
+sudo systemctl enable lpdwi.service
+sudo systemctl start lpdwi.service
